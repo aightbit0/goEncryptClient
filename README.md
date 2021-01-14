@@ -22,5 +22,3 @@ after that,build (see example below)
 cd pathToFolder/
 go build
 ```
-start .exe and GO !
-
