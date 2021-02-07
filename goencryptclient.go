@@ -36,7 +36,7 @@ func main() {
 
 			bytes := gocrypt.GenertateSecurePassword(password)
 			key := hex.EncodeToString(bytes)
-			fmt.Printf("key to encrypt/decrypt : %s\n", key)
+			//fmt.Printf("key to encrypt/decrypt : %s\n", key)
 			fmt.Print("encrypt or decrypt -> ")
 			scanner3 := bufio.NewScanner(os.Stdin)
 			if scanner3.Scan() {
