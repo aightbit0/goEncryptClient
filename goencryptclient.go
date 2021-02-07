@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"encoding/hex"
 	"fmt"
 	"os"
@@ -16,19 +17,32 @@ func main() {
 		var typeOfCrypt string
 		var sure string
 
+		fmt.Println("Welcome to goEncrypt")
 		fmt.Print("Path to encrypt/decrypt Data -> ")
-		fmt.Scan(&path)
+
+		scanner1 := bufio.NewScanner(os.Stdin)
+		if scanner1.Scan() {
+			path = scanner1.Text()
+		}
 
 		if _, err := os.Stat(path); os.IsNotExist(err) {
 			fmt.Println("path not found")
 		} else {
 			fmt.Print("password -> ")
-			fmt.Scan(&password)
+			scanner2 := bufio.NewScanner(os.Stdin)
+			if scanner2.Scan() {
+				password = scanner2.Text()
+			}
+
 			bytes := gocrypt.GenertateSecurePassword(password)
 			key := hex.EncodeToString(bytes)
 			fmt.Printf("key to encrypt/decrypt : %s\n", key)
 			fmt.Print("encrypt or decrypt -> ")
-			fmt.Scan(&typeOfCrypt)
+			scanner3 := bufio.NewScanner(os.Stdin)
+			if scanner3.Scan() {
+				typeOfCrypt = scanner3.Text()
+			}
+
 			allFiles := gocrypt.FillFiles(path, typeOfCrypt)
 
 			for _, f := range allFiles {
@@ -36,7 +50,7 @@ func main() {
 			}
 
 			fmt.Print("are you sure to do this action y/n -> ")
-			fmt.Scan(&sure)
+			fmt.Scanln(&sure)
 
 			if sure == "y" {
 				if typeOfCrypt == "encrypt" {
